@@ -1,0 +1,22 @@
+{
+    "male": {
+        "daily_intake": 2500,
+        "calorie_target": 2500,
+        "carbs_calories": 1000,
+        "carbs_grams": 250,
+        "protein_calories": 750,
+        "protein_grams": 188,
+        "fat_calories": 750,
+        "fat_grams": 83
+    },
+    "female": {
+        "daily_intake": 2000,
+        "calorie_target": 2000,
+        "carbs_calories": 800,
+        "carbs_grams": 200,
+        "protein_calories": 600,
+        "protein_grams": 150,
+        "fat_calories": 600,
+        "fat_grams": 67
+    }
+}

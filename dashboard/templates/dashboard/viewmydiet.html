@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Diet</title>
+    <meta name="author" content="name">
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <!--Totally optional :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
+        integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+<body class="bg-gray-800 font-sans leading-normal tracking-normal">
+
+    <div class="flex flex-col md:flex-row">
+
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48">
+
+            <div
+                class="md:mt-6 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                            <i class="fas fa-chart-area pr-0 md:pr-3 text-white-600"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/view-my-diet"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                            <i class="fa fa-list pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">My
+                                Diet</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600">
+                            <i class="fas fa-user pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">My
+                                Profile</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                            <i class="fa fa-headset pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Health
+                                Help Center</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h3 class="font-bold pl-2">My Diet </h3>
+                </div>
+            </div>
+            <br/>
+            <table   id="my-diet-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Food Intake</th>
+                  <th>Eaten Time</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for article in object_list %}
+                 <tr>
+                    <td>{{article.user_id.name}}</td>
+                     <td>
+                        {% if article.diet.name == "Apple" %}
+                            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M336 128c-32 0-80.02 16.03-112 32.03c-32.01-16-79.1-32.02-111.1-32.03C32 128 .4134 210.5 .0033 288c-.5313 99.97 63.99 224 159.1 224c32 0 48-16 64-16c16 0 32 16 64 16c96 0 160.4-122.8 159.1-224C447.7 211.6 416 128 336 128zM320 32V0h-32C243.8 0 208 35.82 208 80v32h32C284.2 112 320 76.18 320 32z"/></svg>
+
+                        {% elif article.diet.name == "Banana"  %}
+                            <svg width="20px" height="20px" viewBox="0 0 228 253">
+                                <desc></desc>
+                                <g class="banana">
+                                  <path fill="None" stroke="#000000" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="    M8.64,223.948c0,0,143.468,3.431,185.777-181.808c2.673-11.702-1.23-20.154,1.316-33.146h16.287c0,0-3.14,17.248,1.095,30.848
+                                  c21.392,68.692-4.179,242.343-204.227,196.59L8.64,223.948z" />
+                                  <path fill="None" stroke="#000000" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="		M8.767,230.326c0,0,188.246,40.154,196.485-160.139" />
+                                </g>
+                              </svg>
+                        {% elif article.diet.name == "Milk"  %}
+                           <svg width="20px" height="20px"  class="milk-bottle" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 51">
+                            <defs>
+                              <mask id="milk-mask">
+                                <rect class="mask-rect" x="477" y="108" width="15" height="40" transform="rotate(-180 247.5 78.5)" fill="white" />
+                              </mask>
+                            </defs>
+                              <path class="bottle" d="M19 21.1L15 8.74V6a2.3 2.3 0 0 0-.14-.9 1.54 1.54 0 0 0 .14-.65V3c0-.85-.35-1.5-1.19-1.5H7.86C7.02 1.5 6 2.15 6 3v1.47a1.55 1.55 0 0 0 .22.79 1.32 1.32 0 0 0-.22.76v2.72L2 21.09a12.12 12.12 0 0 0-.51 3.21v22.1a3.29 3.29 0 0 0 3.15 3.1h12a2.92 2.92 0 0 0 2.85-3.1V24.3a12.14 12.14 0 0 0-.49-3.2zM7.69 3h5.81v1.47a3.12 3.12 0 0 0 .31.08h-.08l-6-.05zM18 46.4a1.63 1.63 0 0 1-1.4 1.58H4.65C3.93 47.98 3 46.85 3 46.4V24.3a11 11 0 0 1 .61-2.73L7.72 9.1l.08-3a3.72 3.72 0 0 1 .88-.06h4.82v2.79l4.06 12.71a10.67 10.67 0 0 1 .44 2.73z" />
+                              <path class="milk" mask="url(#milk-mask)" d="M4.5 46.5v-23l4-14h4l4 14v23" />
+                          </svg>
+                         {% elif article.diet.name == "Egg"  %}
+                           <svg width="20px" height="20px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M192 16c-106 0-192 182-192 288c0 106 85.1 192 192 192c105.1 0 192-85.1 192-192C384 198 297.1 16 192 16zM160.1 138C128.6 177.1 96 249.8 96 304C96 312.8 88.84 320 80 320S64 312.8 64 304c0-63.56 36.7-143.3 71.22-186c5.562-6.906 15.64-7.969 22.5-2.406C164.6 121.1 165.7 131.2 160.1 138z"/></svg>
+
+                         {% endif %}
+
+                     </td>
+                     <td>{{ article.timestamp}}</td>
+                </tr>
+                {% empty %}
+                    <li>No diet yet.</li>
+                {% endfor %}
+
+
+              </tbody>
+            </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        /*Toggle dropdown list*/
+        function toggleDD(myDropMenu) {
+            document.getElementById(myDropMenu).classList.toggle("invisible");
+        }
+        /*Filter dropdown options*/
+        function filterDD(myDropMenu, myDropMenuSearch) {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById(myDropMenuSearch);
+            filter = input.value.toUpperCase();
+            div = document.getElementById(myDropMenu);
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+                var dropdowns = document.getElementsByClassName("dropdownlist");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('invisible')) {
+                        openDropdown.classList.add('invisible');
+                    }
+                }
+            }
+        }
+
+        $(document).ready( function () {
+            $('#my-diet-table').DataTable();
+        } );
+    </script>
+
+
+</body>
+
+</html>

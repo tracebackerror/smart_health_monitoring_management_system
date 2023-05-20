@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <meta name="author" content="name">
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <!--Totally optional :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
+        integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body class="bg-gray-800 font-sans leading-normal tracking-normal">
+
+    <div class="flex flex-col md:flex-row">
+
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48">
+
+            <div
+                class="md:mt-6 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+                            <i class="fas fa-chart-area pr-0 md:pr-3 text-white-600"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/view-my-diet"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                            <i class="fa fa-list pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">My
+                                Diet</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600">
+                            <i class="fas fa-user pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">My
+                                Profile</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="/"
+                            class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                            <i class="fa fa-headset pr-0 md:pr-3"></i><span
+                                class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Health
+                                Help Center</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h3 class="font-bold pl-2">Smart Health Profile</h3>
+                </div>
+            </div>
+
+            <h1 style="text-align: center;font-size: larger;font-weight: bold;text-decoration: underline;">{% now "F d Y" %}</h1>
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Metric Card-->
+                    <div
+                        class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-blue-600">
+                                    <i style="padding-left: 4px;padding-right: 4px;" class="fas fa-atom fa-2x fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-gray-600">Carbohydrates</h5>
+                                <h3 class="font-bold text-3xl">
+                                    {{diet__total_carbohydrates__sum}}g / {{carbs_grams}}g
+                                    {% if health_status.0 and health_status.1 %}
+                                        <span class="text-green-500"><i class="fas fa-check"></i></span>
+                                    {% elif not health_status.0 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-down"></i></span>
+                                    {% elif not health_status.1 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-up"></i></span>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Metric Card-->
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Metric Card-->
+                    <div
+                        class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-blue-600">
+                                    <i style="padding-left: 4px;padding-right: 4px;" class="fas fa-atom fa-2x fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-gray-600">Protein</h5>
+                                <h3 class="font-bold text-3xl">
+                                    {{diet__protein__sum}}g / {{protein_grams}}g
+                                    {% if health_status.2 and health_status.3 %}
+                                    <span class="text-green-500"><i class="fas fa-check"></i></span>
+                                    {% elif not health_status.2 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-down"></i></span>
+                                    {% elif not health_status.3 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-up"></i></span>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Metric Card-->
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Metric Card-->
+                    <div
+                        class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-blue-600">
+                                    <i style="padding-left: 4px;padding-right: 4px;" class="fas fa-atom fa-2x fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-gray-600">Fat</h5>
+                                <h3 class="font-bold text-3xl">
+                                    {{diet__total_fat__sum}}g / {{fat_grams}}g
+                                    {% if health_status.4 and health_status.5 %}
+                                    <span class="text-green-500"><i class="fas fa-check"></i></span>
+                                    {% elif not health_status.4 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-down"></i></span>
+                                    {% elif not health_status.5 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-up"></i></span>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Metric Card-->
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/2 p-6">
+                    <!--Metric Card-->
+                    <div
+                        class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-600 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-indigo-600">
+                                    <i style="padding-left: 8px;padding-right: 8px;" class="fa fa-bolt fa-2x fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-gray-600">Total Calories</h5>
+                                <h3 class="font-bold text-3xl">
+                                    {{diet__calories__sum}} / {{calorie_target}}
+                                    {% if health_status.6 and health_status.7 %}
+                                    <span class="text-green-500"><i class="fas fa-check"></i></span>
+                                    {% elif not health_status.6 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-down"></i></span>
+                                    {% elif not health_status.7 %}
+                                        <span class="text-red-500"><i class="fas fa-caret-up"></i></span>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Metric Card-->
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/2 p-6">
+                    <!--Metric Card-->
+                    <div
+                        class="bg-gradient-to-b from-{{color}}-200 to-{{color}}-100 border-4 border-{{color}}-500 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-{{color}}-600">
+                                    <i class="fas fa-heart fa-2x fa-inverse"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-gray-600">Health Score</h5>
+                                <h3 class="font-bold text-3xl">
+                                    {{health_score|upper}} {% if color == "green" %}({{healthy_percent}}%){% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/Metric Card-->
+                </div>
+            </div>
+
+
+            <div class="flex flex-row flex-wrap flex-grow mt-2">
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Graph Card-->
+                    <div class="bg-white border-transparent rounded-lg shadow-xl">
+                        <div
+                            class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
+                            <h5 class="font-bold uppercase text-gray-600">Intake Nutrients</h5>
+                        </div>
+                        <div class="p-5"><canvas id="chartjs-4" class="chartjs" width="undefined"
+                                height="undefined"></canvas>
+                            <script>
+                                new Chart(document.getElementById("chartjs-4"), {
+                                    "type": "doughnut",
+                                    "data": {
+                                        "labels": ["Carbohydrates", "Protein", "Fat"],
+                                        "datasets": [{
+                                            "data": [{{chartjs_4_data.0}}, {{chartjs_4_data.1}}, {{chartjs_4_data.2}}],
+                                            "backgroundColor": ["#fc6d7e", "#0bdcbf", "#ffb828"]
+                                        }]
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!--/Graph Card-->
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Table Card-->
+                    <div class="bg-white border-transparent rounded-lg shadow-xl">
+                        <div
+                            class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
+                            <h5 class="font-bold uppercase text-gray-600">Intake Vitamins & Cholesterol</h5>
+                        </div>
+                        <div class="p-5">
+                            <table class="w-full p-5 text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left text-blue-900">Vitamin</th>
+                                        <th class="text-left text-blue-900">Percent</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>Vitamin A</td>
+                                        <td>{{vitamin_a}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vitamin C</td>
+                                        <td>{{vitamin_c}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Calcium</td>
+                                        <td>{{calcium}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pb-2">Iron</td>
+                                        <td class="pb-2">{{iron}}%</td>
+                                    </tr>
+                                    <tr style="border-top: 1px solid lightgray;">
+                                        <td class="pt-2">Cholesterol </td>
+                                        <td class="pt-2">{{cholesterol}}mg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/table Card-->
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <!--Graph Card-->
+                    <div class="bg-white border-transparent rounded-lg shadow-xl">
+                        <div
+                            class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
+                            <h5 class="font-bold uppercase text-gray-600">Calories Level</h5>
+                        </div>
+                        <div class="p-5"><canvas id="chartjs-5" class="chartjs" width="undefined"
+                                height="undefined"></canvas>
+                            <script>
+                                new Chart(document.getElementById("chartjs-5"), {
+                                    "type": "doughnut",
+                                    "data": {
+                                        "labels": ["Intake Calories","Remaining Calories"],
+                                        "datasets": [{
+                                            "data": [{{chartjs_5_data.0}},{{chartjs_5_data.1}}],
+                                            "backgroundColor": ["#0abfc8","#D3D3D3"]
+                                        }]
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!--/Graph Card-->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+    <script>
+        /*Toggle dropdown list*/
+        function toggleDD(myDropMenu) {
+            document.getElementById(myDropMenu).classList.toggle("invisible");
+        }
+        /*Filter dropdown options*/
+        function filterDD(myDropMenu, myDropMenuSearch) {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById(myDropMenuSearch);
+            filter = input.value.toUpperCase();
+            div = document.getElementById(myDropMenu);
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+                var dropdowns = document.getElementsByClassName("dropdownlist");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('invisible')) {
+                        openDropdown.classList.add('invisible');
+                    }
+                }
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
