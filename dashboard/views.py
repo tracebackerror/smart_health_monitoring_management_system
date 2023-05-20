@@ -1,10 +1,11 @@
 from django.views.generic import TemplateView
 from rest_api.models import *
-from django.db.models import Sum
 import json
-from django.utils.timezone import now
+# from django.utils.timezone import now
 from django.views.generic.list import ListView
 from django.utils import timezone
+from django.contrib import messages
+from datetime import datetime
 
 diet_level = json.load(open("dashboard/data/diet_40_30_30.json"))
 pecent_score = 0.15
@@ -53,7 +54,7 @@ class Dashboard(TemplateView):
     def get(self, *args, **kwargs):
         user_id = 1
         user_obj = Person.objects.get(id=user_id)
-        diet_data = user_obj.diet.filter(timestamp__date=now().date())
+        diet_data = user_obj.diet.filter(timestamp__date=datetime.now().date())
         if diet_data:
             # user_diet = diet_data.annotate(
             #     Sum("diet__calories"),
@@ -119,5 +120,15 @@ class ViewMyDiet(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
+        context['now'] = datetime.now()
+        context['foods'] = FoodDatabase.objects.all()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        intake = request.POST["intake"]
+        user_obj = Person.objects.all().first()
+        diet_obj = FoodDatabase.objects.get(name__iexact=intake)
+        MyDiet.objects.create(user_id=user_obj,diet=diet_obj)
+        count = MyDiet.objects.filter(user_id=user_obj,diet=diet_obj,timestamp__date=datetime.now().date()).count()
+        messages.add_message(request, messages.SUCCESS, f"You have consumed {count} {intake} today")
+        return super().get(request, *args, **kwargs)
